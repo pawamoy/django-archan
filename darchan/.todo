@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<todo version="0.1.20">
+    <title>
+        Graph package's todo-list
+    </title>
+    <note priority="medium" time="1423751211">
+        Models
+        <note priority="medium" time="1424000361" done="1424858050">
+            Rewrite models to contain just a JSON text field (and maybe add CSV and other format)
+            <comment>
+                tdd 2.1
+            </comment>
+        </note>
+    </note>
+    <note priority="medium" time="1423751250">
+        Javascript
+        <note priority="medium" time="1423751276" done="1424858067">
+            Write javascript that uses JSON to display an interactive matrix
+        </note>
+        <note priority="medium" time="1425137640">
+            Option to have a one-color-only gradient
+        </note>
+        <note priority="medium" time="1425137724">
+            Increase opacity meter to have a more subtle gradient
+        </note>
+        <note priority="medium" time="1425137850">
+            Add sort option: by Similarity. Compute vectors (i,j) = N where N are identical dependencies between module i and module j. With all these vectors, we have a map of points. We want to minimize the distance (so compute their position), as if it is a TSP. Use a Python TSP solver.
+        </note>
+    </note>
+</todo>

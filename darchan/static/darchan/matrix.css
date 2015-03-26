@@ -1,0 +1,80 @@
+.background {
+    fill: #EEE;
+}
+
+line {
+    stroke: #fff;
+}
+
+text.active {
+    fill: blue;
+}
+
+#aside {
+    position: fixed;
+    left: 20px;
+    top: 70px;
+    min-width: 350px;
+}
+
+#history {
+    position: fixed;
+    left: 380px;
+    top: 70px;
+    overflow: auto;
+    max-height: 400px;
+}
+
+.panel-title{
+    text-align: left;
+    width: 100%;
+    background-color: transparent;
+}
+
+#collapse-settings {
+    padding: 10px 20px 25px;
+}
+
+#collapse-legend {
+    padding: 10px 20px 0;
+}
+
+#legend-svg {
+    min-width: 300px;
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+#matrix {
+    width: 100%;
+    text-align: center;
+    /*overflow: auto;*/
+    font: 10px sans-serif;
+}
+
+.tooltip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.tooltip:before {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25B2";
+    position: inherit;
+    top: -8px;
+
+}
