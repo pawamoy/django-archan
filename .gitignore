@@ -1,3 +1,5 @@
 dist/
 build/
 MANIFEST
+.idea/
+django_archan.egg-info/

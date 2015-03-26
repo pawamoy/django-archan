@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from distutils.core import setup
+from setuptools import setup
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
@@ -11,8 +11,7 @@ setup(
     name='django-archan',
     version='0.0.1',
     packages=['darchan'],
-    package_data={'': ['static/darchan/**/*']},
-    # include_package_data=True,
+    include_package_data=True,
     license='MPL 2.0',
 
     author='Timothée Mazzucotelli',
