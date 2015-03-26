@@ -22,6 +22,16 @@ Then add django-archan to the installed apps of your Django project:
     
     INSTALLED_APPS += ('darchan')
     
+Also add the urls into your main urls.py, something like:
+
+.. code:: python
+
+    # urls.py
+    
+    ...
+    url(r'^darchan/', include('darchan.urls'), name='darchan'),
+    ...
+    
 Usage
 -----
 
