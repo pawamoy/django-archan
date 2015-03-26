@@ -19,6 +19,8 @@ setup(
     url='https://github.com/Pawamoy/django-archan',
     # download_url = 'https://github.com/Pawamoy/django-archan/tarball/0.0.1',
 
+    install_requires=['dependenpy', 'archan'],
+
     keywords="architecture analysis dependency matrix dsm ontology",
     description="A Django app that displays dependency matrices and project architecture information",
     classifiers=[
