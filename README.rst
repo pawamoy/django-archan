@@ -4,8 +4,8 @@ django-archan
 A Django app that displays dependency matrices using `dependenpy`_ Python
 module, and also project architecture information, using `archan`_ Python module.
 
-_dependenpy: https://github.com/Pawamoy/dependenpy
-_archan: https://github.com/Pawamoy/archan
+.. _dependenpy: https://github.com/Pawamoy/dependenpy
+.. _archan: https://github.com/Pawamoy/archan
 
 Installation
 ------------
