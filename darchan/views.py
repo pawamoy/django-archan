@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.admin.views.decorators import staff_member_required
 from darchan.utils import generate_matrix
-from darchan.app_settings import PACKAGE_LIST
+from darchan.app_settings import PACKAGE_LIST, TEMPLATE
 from darchan.models import DependencyMatrixModel
 
 # FIXME: too much repetition, apply DRY
@@ -23,7 +23,7 @@ def v_view_last_matrix(request):
         matrix_obj = DependencyMatrixModel.objects.order_by('-created')[0]
         instance = matrix_obj.get_instance()
         matrix_json = instance.matrix_to_json(1)
-        return render(request, 'matrix/view_matrix.html', {
+        return render(request, TEMPLATE, {
             'matrix': matrix_obj,
             'matrix_json': matrix_json,
             'groups': json.dumps(instance.groups),
@@ -46,9 +46,9 @@ def v_view_matrix(request, mid, lvl):
             instance = matrix_obj.get_instance()
             matrix_json = instance.matrix_to_json(lvl)
         except DependencyMatrixModel.DoesNotExist:
-            return render(request, 'matrix/view_matrix.html',
+            return render(request, TEMPLATE,
                           {'matrix_json': None})
-        return render(request, 'matrix/view_matrix.html', {
+        return render(request, TEMPLATE, {
             'matrix': matrix_obj,
             'matrix_json': matrix_json,
             'groups': json.dumps(instance.groups),
@@ -75,5 +75,5 @@ def v_download_csv(request, mid, lvl):
 
         return instance.matrix_to_csv(lvl, response)
     except DependencyMatrixModel.DoesNotExist:
-        return render(request, 'matrix/view_matrix.html',
+        return render(request, TEMPLATE,
                       {'matrix_json': None})
