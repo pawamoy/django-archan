@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.admin.views.decorators import staff_member_required
 from darchan.utils import generate_matrix
 from darchan.app_settings import PACKAGE_LIST, TEMPLATE
-from darchan.models import DependencyMatrixModel
+from darchan.models import MatrixBuilderModel
 
 # FIXME: too much repetition, apply DRY
 
@@ -18,9 +18,9 @@ def v_generate_matrix(request):
 
 @staff_member_required
 def v_view_last_matrix(request):
-    history = DependencyMatrixModel.objects.all()
+    history = MatrixBuilderModel.objects.all()
     if history.count() > 0:
-        matrix_obj = DependencyMatrixModel.objects.order_by('-created')[0]
+        matrix_obj = MatrixBuilderModel.objects.order_by('-created')[0]
         instance = matrix_obj.get_instance()
         matrix_json = instance.matrix_to_json(1)
         return render(request, TEMPLATE, {
@@ -38,14 +38,14 @@ def v_view_last_matrix(request):
 
 @staff_member_required
 def v_view_matrix(request, mid, lvl):
-    history = DependencyMatrixModel.objects.all()
+    history = MatrixBuilderModel.objects.all()
     if history.count() > 0:
         lvl = int(lvl)
         try:
-            matrix_obj = DependencyMatrixModel.objects.get(pk=mid)
+            matrix_obj = MatrixBuilderModel.objects.get(pk=mid)
             instance = matrix_obj.get_instance()
             matrix_json = instance.matrix_to_json(lvl)
-        except DependencyMatrixModel.DoesNotExist:
+        except MatrixBuilderModel.DoesNotExist:
             return render(request, TEMPLATE,
                           {'matrix_json': None})
         return render(request, TEMPLATE, {
@@ -64,7 +64,7 @@ def v_view_matrix(request, mid, lvl):
 @staff_member_required
 def v_download_csv(request, mid, lvl):
     try:
-        matrix_obj = DependencyMatrixModel.objects.get(pk=mid)
+        matrix_obj = MatrixBuilderModel.objects.get(pk=mid)
         instance = matrix_obj.get_instance()
 
         # Create the HttpResponse object with the appropriate CSV header.
@@ -74,6 +74,6 @@ def v_download_csv(request, mid, lvl):
         response['Content-Disposition'] = attachment
 
         return instance.matrix_to_csv(lvl, response)
-    except DependencyMatrixModel.DoesNotExist:
+    except MatrixBuilderModel.DoesNotExist:
         return render(request, TEMPLATE,
                       {'matrix_json': None})
