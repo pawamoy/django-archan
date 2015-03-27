@@ -1,61 +1,46 @@
 # -*- coding: utf-8 -*-
-import json
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.admin.views.decorators import staff_member_required
 from darchan.utils import generate_matrix
 from darchan.app_settings import PACKAGE_LIST, TEMPLATE
-from darchan.models import MatrixBuilderModel
+from darchan.models import MatrixBuilderModel, MatrixModel
 
 # FIXME: too much repetition, apply DRY
 
 
 @staff_member_required
 def v_generate_matrix(request):
-    matrix_obj = generate_matrix(PACKAGE_LIST)
-    return v_view_matrix(request, matrix_obj.pk, 1)
+    builder, matrices = generate_matrix(PACKAGE_LIST)
+    return v_view_matrix(request, builder.pk, 1)
 
 
 @staff_member_required
 def v_view_last_matrix(request):
-    history = MatrixBuilderModel.objects.all()
-    if history.count() > 0:
-        matrix_obj = MatrixBuilderModel.objects.order_by('-created')[0]
-        instance = matrix_obj.get_instance()
-        matrix_json = instance.matrix_to_json(1)
-        return render(request, TEMPLATE, {
-            'matrix': matrix_obj,
-            'matrix_json': matrix_json,
-            'groups': json.dumps(instance.groups),
-            'level': 1,
-            'size': len(instance.get_matrix(1)['modules']),
-            'max_depth': range(1, instance.max_depth+1),
-            'history': history.exclude(pk=matrix_obj.pk)
-        })
-    else:
-        return v_generate_matrix(request)
+    return v_view_matrix(request, -1, 1)
 
 
 @staff_member_required
-def v_view_matrix(request, mid, lvl):
+def v_view_matrix(request, builder_id, depth):
     history = MatrixBuilderModel.objects.all()
     if history.count() > 0:
-        lvl = int(lvl)
+        depth = int(depth)
         try:
-            matrix_obj = MatrixBuilderModel.objects.get(pk=mid)
-            instance = matrix_obj.get_instance()
-            matrix_json = instance.matrix_to_json(lvl)
-        except MatrixBuilderModel.DoesNotExist:
+            if builder_id == -1:
+                builder = history.order_by('-created')[0]
+            else:
+                builder = MatrixBuilderModel.objects.get(pk=builder_id)
+            matrix = builder.matrices.get(depth=depth)
+        except (MatrixBuilderModel.DoesNotExist, MatrixModel.DoesNotExist):
             return render(request, TEMPLATE,
-                          {'matrix_json': None})
+                          {'json_data': None})
         return render(request, TEMPLATE, {
-            'matrix': matrix_obj,
-            'matrix_json': matrix_json,
-            'groups': json.dumps(instance.groups),
-            'level': lvl,
-            'size': len(instance.get_matrix(lvl)['modules']),
-            'max_depth': range(1, instance.max_depth+1),
-            'history': history.exclude(pk=matrix_obj.pk)
+            'builder': builder,
+            'json_data': matrix.json_data,
+            'size': matrix.size,
+            'depth': depth,
+            'max_depth': range(1, builder.max_depth+1),
+            'history': history.exclude(pk=builder_id)
         })
     else:
         return v_generate_matrix(request)
