@@ -32,7 +32,12 @@ def generate_matrix(apps):
     builder = MatrixBuilder(apps, get_django_module_path)
     builder.build()
     for matrix in builder.matrices:
-        matrix.compute_orders()
+        matrix.compute_order('name')
+        matrix.compute_order('group')
+        matrix.compute_order('import')
+        matrix.compute_order('export')
+        # Not enough optimized (not even working)
+        # matrix.compute_order('similarity')
     return create_instance(builder)
 
 

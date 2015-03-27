@@ -15,8 +15,7 @@ var tip = d3.select("#tooltip")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-// Define groups and set legend
-
+// Set legend with groups
 d3.select("#legend-svg").attr("height", 18*(groups.length+1));
 groups.forEach(function(group, i) {
     d3.select("#legend-svg").append("rect")
@@ -38,14 +37,14 @@ var matrix = [],
     nodes = root.modules,
     n = nodes.length;
 
-// Compute index per node.
+// Compute index per node
 nodes.forEach(function(node, i) {
     node.index = i;
     node.count = 0;
     matrix[i] = d3.range(n).map(function(j) { return {x: j, y: i, z: 0}; });
 });
 
-// Convert links to matrix; count character occurrences.
+// Convert links to matrix; count cardinals
 root.dependencies.forEach(function(link) {
     matrix[link.source_index][link.target_index].z = link.cardinal;
     matrix[link.source_index][link.target_index].imports = JSON.stringify(link.imports);
@@ -54,15 +53,16 @@ root.dependencies.forEach(function(link) {
     nodes[link.source_index].count += link.cardinal;
 });
 
-// Precompute the orders.
+// Precompute the orders
 var orders = {
-    name: d3.range(n).sort(function(a, b) { return d3.ascending(nodes[a].name, nodes[b].name); }),
-    count: d3.range(n).sort(function(a, b) { return nodes[b].count - nodes[a].count; }),
-    group: d3.range(n).sort(function(a, b) { return nodes[a].group_index - nodes[b].group_index; })
-    // TODO: Add similarity order
+    name: d3.range(n).sort(function(a, b) { return nodes[a].order.name - nodes[b].order.name; }),
+    import: d3.range(n).sort(function(a, b) { return nodes[a].order.import - nodes[b].order.import; }),
+    export: d3.range(n).sort(function(a, b) { return nodes[a].order.export - nodes[b].order.export; }),
+    group: d3.range(n).sort(function(a, b) { return nodes[a].order.group - nodes[b].order.group; }),
+    similarity: d3.range(n).sort(function(a, b) { return nodes[a].order.similarity - nodes[b].order.similarity; })
 };
 
-// The default sort order.
+// The default sort order
 x.domain(orders.group);
 
 // Append draw area
