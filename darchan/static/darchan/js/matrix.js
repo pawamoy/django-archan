@@ -46,7 +46,7 @@ nodes.forEach(function(node, i) {
 });
 
 // Convert links to matrix; count character occurrences.
-root.imports.forEach(function(link) {
+root.dependencies.forEach(function(link) {
     matrix[link.source_index][link.target_index].z = link.cardinal;
     matrix[link.source_index][link.target_index].imports = JSON.stringify(link.imports);
     matrix[link.source_index][link.target_index].source_name = link.source_name;

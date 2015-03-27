@@ -58,7 +58,7 @@ def create_instance(builder):
                 size=matrix.size,
                 builder=builder_db,
                 json_data=json.dumps(
-                    {'modules': matrix.modules,
+                    {'modules': matrix.modules.values(),
                      'dependencies': matrix.dependencies})))
 
     return builder_db, matrices_db
