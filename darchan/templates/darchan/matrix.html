@@ -17,18 +17,38 @@
                         <option value="group">
                             {% trans "Group" %}
                         </option>
+                        <option value="group_reverse">
+                            {% trans "Group (reverse)" %}
+                        </option>
+                        <option disabled>-----</option>
                         <option value="name">
                             {% trans "Name" %}
                         </option>
+                        <option value="name_reverse">
+                            {% trans "Name (reverse)" %}
+                        </option>
+                        <option disabled>-----</option>
                         <option value="import">
                             {% trans "Import frequency" %}
                         </option>
+                        <option value="import_reverse">
+                            {% trans "Import frequency (reverse)" %}
+                        </option>
+                        <option disabled>-----</option>
                         <option value="export">
                             {% trans "Export frequency" %}
                         </option>
-                        <option value="similarity">
-                            {% trans "Similarity" %}
+                        <option value="export_reverse">
+                            {% trans "Export frequency (reverse)" %}
                         </option>
+                        {# FIXME: commented out until similarity order is ready #}
+{#                        <option disabled>-----</option>#}
+{#                        <option value="similarity">#}
+{#                            {% trans "Similarity" %}#}
+{#                        </option>#}
+{#                        <option value="similarity_reverse">#}
+{#                            {% trans "Similarity (reverse)" %}#}
+{#                        </option>#}
                     </select>
                 </div>
                 <br>
