@@ -39,7 +39,8 @@ var matrix = [],
 
 // Compute index per node
 nodes.forEach(function(node, i) {
-    node.index = i;
+    //node.index = i;
+    node.index = node.order.group;
     node.count = 0;
     matrix[i] = d3.range(n).map(function(j) { return {x: j, y: i, z: 0}; });
 });
@@ -114,7 +115,7 @@ function row(row) {
         .attr("width", x.rangeBand())
         .attr("height", x.rangeBand())
         .style("fill-opacity", function(d) { return z(d.z); })
-        .style("fill", function(d) { return nodes[d.x].group_index == nodes[d.y].group_index ? c(nodes[d.x].group_index) : null; })
+        .style("fill", function(d) { return nodes[d.x].group.index == nodes[d.y].group.index ? c(nodes[d.x].group.index) : null; })
         .on("mouseover", mouseover)
         .on("mouseout", mouseout);
 }
