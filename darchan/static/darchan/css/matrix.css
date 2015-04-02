@@ -16,6 +16,15 @@ text.active {
     top: 280px;
 }
 
+.settings-btn {
+    min-width: 60%;
+}
+
+#archan {
+    text-align: center;
+    width: 60%;
+}
+
 .panel-title{
     text-align: left;
     width: 100%;

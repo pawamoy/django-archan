@@ -13,7 +13,7 @@
             </ul>
             <div id="tabs-1">
                 <div class="col-md-6">
-                    <div id="legend" class="panel panel-default">
+                    <div id="legend" class="panel panel-success">
                         <div class="panel-heading">
                               <input type="button" class="btn panel-title"
                                      data-toggle="collapse" data-parent="#legend" data-target="#collapse-legend"
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div id="settings" class="panel panel-default">
+                    <div id="settings" class="panel panel-success">
                         <div class="panel-heading">
                               <input type="button" class="btn panel-title"
                                      data-toggle="collapse" data-parent="#settings" data-target="#collapse-settings"
@@ -34,35 +34,35 @@
                         <div class="panel-collapse collapse list-group in" id="collapse-settings">
                             <div>
                                 {% trans "Order by" %}
-                                <select id="order" class="pull-right btn btn-default">
+                                <select id="order" class="pull-right btn btn-default settings-btn">
                                     <option value="group">
                                         {% trans "Group" %}
                                     </option>
                                     <option value="group_reverse">
                                         {% trans "Group (reverse)" %}
                                     </option>
-                                    <option disabled>-----</option>
+                                    <option disabled>---------------------------</option>
                                     <option value="name">
                                         {% trans "Name" %}
                                     </option>
                                     <option value="name_reverse">
                                         {% trans "Name (reverse)" %}
                                     </option>
-                                    <option disabled>-----</option>
+                                    <option disabled>---------------------------</option>
                                     <option value="import">
                                         {% trans "Import frequency" %}
                                     </option>
                                     <option value="import_reverse">
                                         {% trans "Import frequency (reverse)" %}
                                     </option>
-                                    <option disabled>-----</option>
+                                    <option disabled>---------------------------</option>
                                     <option value="export">
                                         {% trans "Export frequency" %}
                                     </option>
                                     <option value="export_reverse">
                                         {% trans "Export frequency (reverse)" %}
                                     </option>
-                                    <option disabled>-----</option>
+                                    <option disabled>---------------------------</option>
                                     <option value="similarity">
                                         {% trans "Similarity" %}
                                     </option>
@@ -74,9 +74,9 @@
                             <br>
                             <div>
                                 {% trans "Depth" %}
-                                <div class="pull-right">
+                                <div class="pull-right settings-btn">
                                     {% for d in max_depth %}
-                                        <a class="label {% if d == matrix.depth %}label-warning active{% else %}label-info{% endif %}" href="{% url 'view_matrix' builder.id d %}">{{ d }}</a>
+                                        <a class="label label-{% if d == matrix.depth %}success active{% else %}default{% endif %}" href="{% url 'view_matrix' builder.id d %}">{{ d }}</a>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                             <div>
                                 {% trans "New matrix" %}
                                 <a href="{% url 'generate_matrix' %}">
-                                    <button class="btn btn-default pull-right">
+                                    <button class="btn btn-default pull-right settings-btn">
                                         {% trans "Generate" %}
                                     </button>
                                 </a>
@@ -93,7 +93,7 @@
                             <div>
                                 {% trans "Download as CSV" %}
                                 <a href="{% url 'download_csv' builder.id matrix.depth %}">
-                                    <button class="btn btn-default pull-right">
+                                    <button class="btn btn-default pull-right settings-btn">
                                         {% trans "Download" %}
                                     </button>
                                 </a>
@@ -101,7 +101,7 @@
                             <br>
                             <div>
                                 {% trans "History" %}
-                                <button class="dropdown-toggle btn btn-default pull-right" data-toggle="dropdown">
+                                <button class="dropdown-toggle btn btn-default pull-right settings-btn" data-toggle="dropdown">
                                     {{ builder.created }} <span class="caret"></span>
                                 </button>
                                 <ul id="history" class="dropdown-menu">
@@ -132,46 +132,46 @@
                 <script src="{% static "darchan/js/matrix.js" %}"></script>
             </div>
             <div id="tabs-2">
-                <div class="panel panel-default">
-                    <table class="table">
+                <div id="archan" class="panel panel-default">
+                    <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>{% trans "Criteria" %}</th>
-                                <th>{% trans "Checked" %}</th>
+                                <th class="text-center active">{% trans "Criteria" %}</th>
+                                <th class="text-center active">{% trans "Checked" %}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="{% if matrix.open_design %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Open Design</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.open_design %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.open_design %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.open_design %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.code_clean %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Code Clean</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.code_clean %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.code_clean %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.code_clean %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.complete_mediation %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Complete Mediation</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.complete_mediation %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.complete_mediation %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.complete_mediation %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.economy_of_mechanism %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Economy of mechanism</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.economy_of_mechanism %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.economy_of_mechanism %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.economy_of_mechanism %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.layered_architecture %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Layered Architecture</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.layered_architecture %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.layered_architecture %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.layered_architecture %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.least_common_mechanism %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Least Common Mechanism</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.least_common_mechanism %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.least_common_mechanism %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.least_common_mechanism %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.least_privileges %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Least Privileges</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.least_privileges %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.least_privileges %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.least_privileges %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
-                            <tr class="{% if matrix.separation_of_privileges %}success{% else %}danger{% endif %}">
+                            <tr>
                                 <td>Separation Of Privileges</td>
-                                <td><i class="glyphicon glyphicon-{% if matrix.separation_of_privileges %}ok{% else %}remove{% endif %}"></i></td>
+                                <td class="{% if matrix.separation_of_privileges %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.separation_of_privileges %}ok{% else %}remove{% endif %}"></i></td>
                             </tr>
                         </tbody>
                     </table>
