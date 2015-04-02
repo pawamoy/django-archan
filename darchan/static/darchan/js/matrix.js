@@ -60,14 +60,12 @@ var orders = {
     import: d3.range(n).sort(function(a, b) { return nodes[a].order.import.False - nodes[b].order.import.False; }),
     export: d3.range(n).sort(function(a, b) { return nodes[a].order.export.False - nodes[b].order.export.False; }),
     group: d3.range(n).sort(function(a, b) { return nodes[a].order.group.False - nodes[b].order.group.False; }),
-    // FIXME: commented out until similarity order is ready
-    //similarity: d3.range(n).sort(function(a, b) { return nodes[a].order.similarity.False - nodes[b].order.similarity.False; }),
+    similarity: d3.range(n).sort(function(a, b) { return nodes[a].order.similarity.False - nodes[b].order.similarity.False; }),
     name_reverse: d3.range(n).sort(function(a, b) { return nodes[a].order.name.True - nodes[b].order.name.True; }),
     import_reverse: d3.range(n).sort(function(a, b) { return nodes[a].order.import.True - nodes[b].order.import.True; }),
     export_reverse: d3.range(n).sort(function(a, b) { return nodes[a].order.export.True - nodes[b].order.export.True; }),
     group_reverse: d3.range(n).sort(function(a, b) { return nodes[a].order.group.True - nodes[b].order.group.True; }),
-    // FIXME: commented out until similarity order is ready
-    //similarity_reverse: d3.range(n).sort(function(a, b) { return nodes[a].order.similarity.True - nodes[b].order.similarity.True; })
+    similarity_reverse: d3.range(n).sort(function(a, b) { return nodes[a].order.similarity.True - nodes[b].order.similarity.True; })
 };
 
 // The default sort order

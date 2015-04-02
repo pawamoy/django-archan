@@ -31,13 +31,9 @@ def generate_matrix(apps):
 
     builder = MatrixBuilder(apps, get_django_module_path)
     builder.build()
-    for matrix in builder.matrices:
-        matrix.compute_order('name')
-        matrix.compute_order('group')
-        matrix.compute_order('import')
-        matrix.compute_order('export')
-        # Not enough optimized (not even working)
-        # matrix.compute_order('similarity')
+    builder.get_matrix(1).compute_orders()
+    # for matrix in builder.matrices:
+    #     matrix.compute_orders()
     return create_instance(builder)
 
 
