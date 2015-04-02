@@ -132,7 +132,50 @@
                 <script src="{% static "darchan/js/matrix.js" %}"></script>
             </div>
             <div id="tabs-2">
-                <h1>CONTENTS COMING LATER</h1>
+                <div class="panel panel-default">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Criteria" %}</th>
+                                <th>{% trans "Checked" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="{% if matrix.open_design %}success{% else %}danger{% endif %}">
+                                <td>Open Design</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.open_design %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.code_clean %}success{% else %}danger{% endif %}">
+                                <td>Code Clean</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.code_clean %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.complete_mediation %}success{% else %}danger{% endif %}">
+                                <td>Complete Mediation</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.complete_mediation %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.economy_of_mechanism %}success{% else %}danger{% endif %}">
+                                <td>Economy of mechanism</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.economy_of_mechanism %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.layered_architecture %}success{% else %}danger{% endif %}">
+                                <td>Layered Architecture</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.layered_architecture %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.least_common_mechanism %}success{% else %}danger{% endif %}">
+                                <td>Least Common Mechanism</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.least_common_mechanism %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.least_privileges %}success{% else %}danger{% endif %}">
+                                <td>Least Privileges</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.least_privileges %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                            <tr class="{% if matrix.separation_of_privileges %}success{% else %}danger{% endif %}">
+                                <td>Separation Of Privileges</td>
+                                <td><i class="glyphicon glyphicon-{% if matrix.separation_of_privileges %}ok{% else %}remove{% endif %}"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     {% else %}
