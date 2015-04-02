@@ -2,6 +2,8 @@
 import sys
 import json
 from dependenpy.utils import MatrixBuilder
+from archan.dsm import DesignStructureMatrix
+from archan.checker import Archan
 from darchan.models import MatrixModel, MatrixBuilderModel
 
 
@@ -31,13 +33,20 @@ def generate_matrix(apps):
 
     builder = MatrixBuilder(apps, get_django_module_path)
     builder.build()
-    builder.get_matrix(1).compute_orders()
+    matrix = builder.get_matrix(1)
+    matrix.compute_orders()
     # for matrix in builder.matrices:
     #     matrix.compute_orders()
-    return create_instance(builder)
+
+    dsm_list = [DesignStructureMatrix(m.groups, m.keys, m.matrix)
+                for m in builder.matrices]
+    archan = Archan()
+
+    return create_instance(builder, [archan.check_all(dsm)
+                                     for dsm in dsm_list])
 
 
-def create_instance(builder):
+def create_instance(builder, archans):
     """Save the builder instance and its matrices as database objects
     and return them.
 
@@ -52,14 +61,24 @@ def create_instance(builder):
         groups=json.dumps(builder.groups))
 
     matrices_db = []
-    for matrix in builder.matrices:
+    # for matrix, archan in builder.matrices, archans:
+    for i in range(builder.max_depth):
         matrices_db.append(
             MatrixModel.objects.create(
-                depth=matrix.depth,
-                size=matrix.size,
+                depth=builder.matrices[i].depth,
+                size=builder.matrices[i].size,
                 builder=builder_db,
                 json_data=json.dumps(
-                    {'modules': matrix.modules.values(),
-                     'dependencies': matrix.dependencies})))
+                    {'modules': builder.matrices[i].modules.values(),
+                     'dependencies': builder.matrices[i].dependencies}),
+                complete_mediation=archans[i]['CM'],
+                economy_of_mechanism=archans[i]['EOM'],
+                separation_of_privileges=archans[i]['SOP'],
+                layered_architecture=archans[i]['LA'],
+                least_common_mechanism=archans[i]['LCM'],
+                least_privileges=archans[i]['LP'],
+                open_design=archans[i]['OD'],
+                code_clean=archans[i]['CC']
+            ))
 
     return builder_db, matrices_db

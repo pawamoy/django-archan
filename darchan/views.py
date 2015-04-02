@@ -32,13 +32,13 @@ def v_view_matrix(request, builder_id, depth):
                 builder = MatrixBuilderModel.objects.get(pk=builder_id)
             matrix = builder.matrices.get(depth=depth)
         except (MatrixBuilderModel.DoesNotExist, MatrixModel.DoesNotExist):
-            return render(request, TEMPLATE,
-                          {'json_data': None})
+            return render(request, TEMPLATE, {
+                'matrix': None,
+                'history': history
+            })
         return render(request, TEMPLATE, {
             'builder': builder,
-            'json_data': matrix.json_data,
-            'size': matrix.size,
-            'depth': depth,
+            'matrix': matrix,
             'max_depth': range(1, builder.max_depth+1),
             'history': history.exclude(pk=builder_id)
         })

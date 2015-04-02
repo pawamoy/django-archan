@@ -12,8 +12,8 @@ text.active {
 
 #history {
     position: absolute;
-    left: 77.5%;
-    top: 340px;
+    left: 55%;
+    top: 280px;
 }
 
 .panel-title{
@@ -43,7 +43,7 @@ text.active {
 #matrix {
     width: 100%;
     text-align: center;
-    /*overflow: auto;*/
+    overflow: auto;
     font: 10px sans-serif;
 }
 

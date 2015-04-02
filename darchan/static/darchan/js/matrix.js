@@ -1,7 +1,7 @@
 // Prepare sizes and scales
 var x = d3.scale.ordinal().rangeBands([0, width]),
-    z = d3.scale.linear().domain([0, 4]).clamp(true),
-    c = d3.scale.category10().domain(d3.range(10));
+    z = d3.scale.linear().domain([0, 5]).clamp(true),
+    c = d3.scale.category10();
 
 // Add the svg canvas
 var svg = d3.select("#matrix").append("svg")
@@ -41,7 +41,6 @@ var matrix = [],
 nodes.forEach(function(node, i) {
     //node.index = i;
     node.index = node.order.group;
-    node.count = 0;
     matrix[i] = d3.range(n).map(function(j) { return {x: j, y: i, z: 0}; });
 });
 
@@ -51,7 +50,6 @@ root.dependencies.forEach(function(link) {
     matrix[link.source_index][link.target_index].imports = JSON.stringify(link.imports);
     matrix[link.source_index][link.target_index].source_name = link.source_name;
     matrix[link.source_index][link.target_index].target_name = link.target_name;
-    nodes[link.source_index].count += link.cardinal;
 });
 
 // Precompute the orders
@@ -120,7 +118,9 @@ function row(row) {
         .attr("width", x.rangeBand())
         .attr("height", x.rangeBand())
         .style("fill-opacity", function(d) { return z(d.z); })
-        .style("fill", function(d) { return nodes[d.x].group.index == nodes[d.y].group.index ? c(nodes[d.x].group.index) : null; })
+        .style("fill", function(d) {
+            return nodes[d.x].group.index == nodes[d.y].group.index ?
+                c(nodes[d.x].group.index) : null; })
         .on("mouseover", mouseover)
         .on("mouseout", mouseout);
 }
@@ -130,8 +130,8 @@ function mouseover(p) {
     tip.transition().duration(200).style("opacity", .9);
     tip.html(p.source_name + ' depends on ' +
         p.target_name + '<br>' + 'Cardinal: '+ p.z);
-    tip     .style("left", (d3.event.pageX - 20) + "px")
-            .style("top", (d3.event.pageY + 20) + "px");
+    tip     .style("left", (d3.event.pageX - 122) + "px")
+            .style("top", (d3.event.pageY - 30) + "px");
     // Colorize names
     d3.selectAll(".row text").classed("active", function(d, i) { return i == p.y; });
     d3.selectAll(".column text").classed("active", function(d, i) { return i == p.x; });
