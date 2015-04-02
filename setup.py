@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-archan',
-    version='0.0.2',
+    version='0.0.3',
     packages=['darchan'],
     include_package_data=True,
     license='MPL 2.0',
@@ -22,7 +22,8 @@ setup(
     install_requires=['dependenpy', 'archan'],
 
     keywords="architecture analysis dependency matrix dsm ontology",
-    description="A Django app that displays dependency matrices and project architecture information",
+    description="A Django app that displays dependency matrices "
+                "and project architecture information",
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Django",

@@ -32,16 +32,131 @@ Also add the urls into your main urls.py, something like:
     url(r'^darchan/', include('darchan.urls'), name='darchan'),
     ...
     
-Usage
------
-
-*Contents coming later*
-
 Configuration
 -------------
 
 The following options are available:
 
 * DARCHAN_PACKAGE_LIST : the list of installed packages that will be scanned to
-  build the dependency matrices
-* More options coming later
+  build the dependency matrices. It should be an OrderedDict (from collections),
+  but you can use a simple list of even a string. We use an OrderedDict because
+  we want our dependency matrix to keep the original order of the packages.
+* DARCHAN_TEMPLATE : the path to the template that will include django_archan
+  HTML/CSS/JS contents. The purpose of this option is to make django archan
+  template inherit from your HTML base.
+
+.. warning::
+
+    If you do not use an OrderedDict, you won't be able to split your package
+    list into groups, and Archan module will not be able to analyze your
+    architecture. Archan needs to know of which kind of module each package is.
+    Please read the second warning below for more details.
+
+Usage
+-----
+
+.. code:: python
+
+    # settings.py
+
+    DARCHAN_TEMPLATE = "my_app/my_custom_template.html"
+
+
+.. code:: html
+
+    <!-- my_app/my_custom_template.html -->
+
+    {% extends "my_core/my_base.html" %}
+    {% load static %}
+
+    {% block my_content %}
+        {% include "darchan/matrix.html" %}
+    {% endblock %}
+
+    {% block my_js %}
+        {# overriden to remove inclusion of another jquery script #}
+        {# that would enter in conflict with darchan's one #}
+    {% endblock %}
+
+
+.. code:: python
+
+    # settings.py
+
+    from collections import OrderedDict
+
+    DARCHAN_PACKAGE_LIST = OrderedDict()
+
+    DARCHAN_PACKAGE_LIST['framework'] = ['django']
+
+    DARCHAN_PACKAGE_LIST['core_lib'] = [
+        'suit',
+        'captcha',
+        'imagekit',
+        'markdown_deux',
+        'rosetta',
+        'django_forms_bootstrap',
+        'pagedown',
+        'axes',
+        'avatar',
+        'cities_light',
+        'datetimewidget',
+        'smart_selects',
+        'modeltranslation',
+        'djangobower']
+
+    DARCHAN_PACKAGE_LIST['app_lib'] = [
+        'django_zxcvbn_password',
+        'cs_models',
+        'news',
+        'dataforms',
+        'darchan']
+
+    DARCHAN_PACKAGE_LIST['app_module'] = [
+        'complex',
+        'genida',
+        'members',
+        'questionnaires']
+
+    DARCHAN_PACKAGE_LIST['broker'] = ['security']
+
+
+.. warning::
+
+    It is mandatory that you use the following names
+    for naming your groups of packages, otherwise an exception will
+    be raised by the archan module:
+
+    * framework: obviously, django
+    * core_lib: the django packages you installed and you didn't modify
+    * app_lib: the django packages that you wrote or modified
+    * app_module: the main features of your project
+      (packages in your project root, not in virtualenv)
+    * broker: the modules that are used for security purposes
+    * data: the modules that only deal with data (no views, no forms, ...)
+
+    However, it does not mean that YOU HAVE to use ALL these names: you could
+    take the above example and get rid of the 'broker' group, or any other group
+    if you don't need it. You can also put all your packages in one group
+    called 'app_module'
+
+    In the future it will maybe be possible to give the names you want,
+    by associating them with the previous mentioned one in some way, but for
+    now you can't.
+
+
+Now all you need to do is to add a link somewhere on your pages, like this:
+
+.. code:: html
+
+    <a href="{% url "view_last_matrix" %}">
+        Click to see the last generated matrix, or to generate one if there are not.
+    </a>
+
+    <!-- or like this, matching the above urls.py example: -->
+
+    <a href="/darchan/view_matrix/">
+        Click to see the last generated matrix, or to generate one if there are not.
+    </a>
+
+Please check django-archan's urls.py file to see the other available URLs.
