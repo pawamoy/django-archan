@@ -25,6 +25,7 @@ setup(
     description="A Django app that displays dependency matrices "
                 "and project architecture information",
     classifiers=[
+        'Development Status :: 4 - Beta',
         "Environment :: Web Environment",
         "Framework :: Django",
         "Intended Audience :: Developers",
