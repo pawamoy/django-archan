@@ -10,19 +10,10 @@ text.active {
     fill: blue;
 }
 
-#aside {
-    position: fixed;
-    left: 20px;
-    top: 70px;
-    min-width: 350px;
-}
-
 #history {
-    position: fixed;
-    left: 380px;
-    top: 70px;
-    overflow: auto;
-    max-height: 400px;
+    position: absolute;
+    left: 77.5%;
+    top: 340px;
 }
 
 .panel-title{

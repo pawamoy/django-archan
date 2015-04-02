@@ -47,18 +47,19 @@ def v_view_matrix(request, builder_id, depth):
 
 
 @staff_member_required
-def v_download_csv(request, mid, lvl):
+def v_download_csv(request, builder_id, depth):
     try:
-        matrix_obj = MatrixBuilderModel.objects.get(pk=mid)
+        matrix_obj = MatrixBuilderModel.objects.get(pk=builder_id)
         instance = matrix_obj.get_instance()
 
         # Create the HttpResponse object with the appropriate CSV header.
         response = HttpResponse(content_type='text/csv')
         attachment = 'attachment; filename="matrix-%s-lvl-%s.csv"' % (
-            matrix_obj.created, lvl)
+            matrix_obj.created, depth)
         response['Content-Disposition'] = attachment
 
-        return instance.matrix_to_csv(lvl, response)
+        return instance.matrix_to_csv(depth, response)
     except MatrixBuilderModel.DoesNotExist:
         return render(request, TEMPLATE,
                       {'matrix_json': None})
+

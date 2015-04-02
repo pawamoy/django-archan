@@ -7,6 +7,6 @@ urlpatterns = patterns(
     url(r'^view_matrix/(?P<builder_id>\d+)/(?P<depth>\d+)/$', 'v_view_matrix',
         name='view_matrix'),
     url(r'^generate_matrix/$', 'v_generate_matrix', name='generate_matrix'),
-    url(r'^download_csv/(?P<mid>\d+)/(?P<lvl>\d+)/$', 'v_download_csv',
-        name='download_csv'),
+    url(r'^download_csv/(?P<builder_id>\d+)/(?P<depth>\d+)/$',
+        'v_download_csv', name='download_csv'),
 )

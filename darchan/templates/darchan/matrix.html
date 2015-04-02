@@ -1,124 +1,148 @@
 {% load static %}
 {% load i18n %}
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="{% static 'darchan/css/matrix.css' %}" />
+
 <div class="container" role="main">
-    <div id="aside" class="panel-group">
-        <div id="settings" class="panel panel-info">
-            <div class="panel-heading">
-                  <input type="button" class="btn panel-title"
-                         data-toggle="collapse" data-parent="#settings" data-target="#collapse-settings"
-                         value="{% trans 'Settings' %}">
-            </div>
-            <div class="panel-collapse collapse list-group in" id="collapse-settings">
-                <div>
-                    {% trans "Order by" %}
-                    <select id="order" class="pull-right btn btn-default">
-                        <option value="group">
-                            {% trans "Group" %}
-                        </option>
-                        <option value="group_reverse">
-                            {% trans "Group (reverse)" %}
-                        </option>
-                        <option disabled>-----</option>
-                        <option value="name">
-                            {% trans "Name" %}
-                        </option>
-                        <option value="name_reverse">
-                            {% trans "Name (reverse)" %}
-                        </option>
-                        <option disabled>-----</option>
-                        <option value="import">
-                            {% trans "Import frequency" %}
-                        </option>
-                        <option value="import_reverse">
-                            {% trans "Import frequency (reverse)" %}
-                        </option>
-                        <option disabled>-----</option>
-                        <option value="export">
-                            {% trans "Export frequency" %}
-                        </option>
-                        <option value="export_reverse">
-                            {% trans "Export frequency (reverse)" %}
-                        </option>
-                        <option disabled>-----</option>
-                        <option value="similarity">
-                            {% trans "Similarity" %}
-                        </option>
-                        <option value="similarity_reverse">
-                            {% trans "Similarity (reverse)" %}
-                        </option>
-                    </select>
-                </div>
-                <br>
-                <div>
-                    {% trans "Depth" %}
-                    <div class="pull-right">
-                        {% for d in max_depth %}
-                            <a class="label {% if d == depth %}label-warning active{% else %}label-info{% endif %}" href="{% url 'view_matrix' builder.id d %}">{{ d }}</a>
-                        {% endfor %}
+    <div id="tabs">
+         <ul>
+            <li id="tab1-link"><a href="#tabs-1">{% trans "Dependency Matrix" %}</a></li>
+            <li id="tab2-link"><a href="#tabs-2">{% trans "Architecture Analysis" %}</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div id="aside" class="panel-group">
+                <div id="settings" class="panel panel-default">
+                    <div class="panel-heading">
+                          <input type="button" class="btn panel-title"
+                                 data-toggle="collapse" data-parent="#settings" data-target="#collapse-settings"
+                                 value="{% trans 'Settings' %}">
+                    </div>
+                    <div class="panel-collapse collapse list-group in" id="collapse-settings">
+                        <div>
+                            {% trans "Order by" %}
+                            <select id="order" class="pull-right btn btn-default">
+                                <option value="group">
+                                    {% trans "Group" %}
+                                </option>
+                                <option value="group_reverse">
+                                    {% trans "Group (reverse)" %}
+                                </option>
+                                <option disabled>-----</option>
+                                <option value="name">
+                                    {% trans "Name" %}
+                                </option>
+                                <option value="name_reverse">
+                                    {% trans "Name (reverse)" %}
+                                </option>
+                                <option disabled>-----</option>
+                                <option value="import">
+                                    {% trans "Import frequency" %}
+                                </option>
+                                <option value="import_reverse">
+                                    {% trans "Import frequency (reverse)" %}
+                                </option>
+                                <option disabled>-----</option>
+                                <option value="export">
+                                    {% trans "Export frequency" %}
+                                </option>
+                                <option value="export_reverse">
+                                    {% trans "Export frequency (reverse)" %}
+                                </option>
+                                <option disabled>-----</option>
+                                <option value="similarity">
+                                    {% trans "Similarity" %}
+                                </option>
+                                <option value="similarity_reverse">
+                                    {% trans "Similarity (reverse)" %}
+                                </option>
+                            </select>
+                        </div>
+                        <br>
+                        <div>
+                            {% trans "Depth" %}
+                            <div class="pull-right">
+                                {% for d in max_depth %}
+                                    <a class="label {% if d == depth %}label-warning active{% else %}label-info{% endif %}" href="{% url 'view_matrix' builder.id d %}">{{ d }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            {% trans "New matrix" %}
+                            <a href="{% url 'generate_matrix' %}">
+                                <button class="btn btn-default pull-right">
+                                    {% trans "Generate" %}
+                                </button>
+                            </a>
+                        </div>
+                        <br>
+                        <div>
+                            {% trans "Download as CSV" %}
+                            <a href="{% url 'download_csv' builder.id depth %}">
+                                <button class="btn btn-default pull-right">
+                                    {% trans "Download" %}
+                                </button>
+                            </a>
+                        </div>
+                        <br>
+                        <div>
+                            {% trans "History" %}
+                            <button class="dropdown-toggle btn btn-default pull-right" data-toggle="dropdown">
+                                {{ builder.created }} <span class="caret"></span>
+                            </button>
+                            <ul id="history" class="dropdown-menu">
+                                {% for b in history %}
+                                    <li><a href="{% url 'view_matrix' b.id 1 %}">{{ b.created }}</a></li>
+                                {% empty %}
+                                    <li><a href="{% url 'generate_matrix' %}">{% trans "No history - Generate a new matrix" %}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <br>
-                <div>
-                    {% trans "New matrix" %}
-                    <a href="{% url 'generate_matrix' %}">
-                        <button class="btn btn-default pull-right">
-                            {% trans "Generate" %}
-                        </button>
-                    </a>
-                </div>
-                <br>
-                <div>
-                    {% trans "Download as CSV" %}
-                    <a href="{% url 'download_csv' builder.id depth %}">
-                        <button class="btn btn-default pull-right">
-                            {% trans "Download" %}
-                        </button>
-                    </a>
-                </div>
-                <br>
-                <div>
-                    {% trans "History" %}
-                    <button class="dropdown-toggle btn btn-default pull-right" data-toggle="dropdown">
-                        {{ builder.created }} <span class="caret"></span>
-                    </button>
-                    <ul id="history" class="dropdown-menu">
-                        {% for b in history %}
-                            <li><a href="{% url 'view_matrix' b.id 1 %}">{{ b.created }}</a></li>
-                        {% empty %}
-                            <li><a href="{% url 'generate_matrix' %}">{% trans "No history - Generate a new matrix" %}</a></li>
-                        {% endfor %}
-                    </ul>
+                <div id="legend" class="panel panel-default">
+                    <div class="panel-heading">
+                          <input type="button" class="btn panel-title"
+                                 data-toggle="collapse" data-parent="#legend" data-target="#collapse-legend"
+                                 value="{% trans 'Legend' %}">
+                    </div>
+                    <div class="panel-collapse collapse list-group in" id="collapse-legend">
+                        <svg id="legend-svg"></svg>
+                    </div>
                 </div>
             </div>
+            {% if json_data %}
+                <div id="tooltip"></div>
+                <div id="matrix"></div>
+            <!-- Including d3js script -->
+                <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+            <!-- Defining global JS variables -->
+                <script>
+                    var root = {{ json_data|safe }};
+                    var groups = {{ builder.groups|safe }};
+                    groups.push("{% trans "Outside-group dependencies" %}");
+                    var margin = {top: 200+{{ depth }}*40, right: 150, bottom: 10, left: 100+{{ depth }}*40},
+                        width = {% if size < 40 %}600{% else %}10 * {{ size }} + 200{% endif %},
+                        height = {% if size < 40 %}600{% else %}10 * {{ size }} + 200{% endif %};
+                </script>
+            <!-- Including darchan matrix JS script -->
+                <script src="{% static "darchan/js/matrix.js" %}"></script>
+            {% endif %}
         </div>
-        <div id="legend" class="panel panel-warning">
-            <div class="panel-heading">
-                  <input type="button" class="btn panel-title"
-                         data-toggle="collapse" data-parent="#legend" data-target="#collapse-legend"
-                         value="{% trans 'Legend' %}">
-            </div>
-            <div class="panel-collapse collapse list-group in" id="collapse-legend">
-                <svg id="legend-svg"></svg>
-            </div>
+        <div id="tabs-2">
+            <h1>CONTENTS COMING LATER</h1>
         </div>
     </div>
-    {% if json_data %}
-        <div id="tooltip"></div>
-        <div id="matrix"></div>
-    <!-- Including d3js script -->
-        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <!-- Defining global JS variables -->
-        <script>
-            var root = {{ json_data|safe }};
-            var groups = {{ builder.groups|safe }};
-            groups.push("{% trans "Outside-group dependencies" %}");
-            var margin = {top: 200+{{ depth }}*40, right: 150, bottom: 10, left: 100+{{ depth }}*40},
-                width = {% if size < 40 %}600{% else %}10 * {{ size }} + 200{% endif %},
-                height = {% if size < 40 %}600{% else %}10 * {{ size }} + 200{% endif %};
-        </script>
-    <!-- Including darchan matrix JS script -->
-        <script src="{% static "darchan/js/matrix.js" %}"></script>
-    {% endif %}
 </div>
+
+{% block js %}
+    {% if block.context %}{{ block.super }}{% endif %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#tabs").tabs();
+        });
+    </script>
+{% endblock %}
