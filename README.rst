@@ -4,8 +4,22 @@ django-archan
 A Django app that displays dependency matrices using `dependenpy`_ Python
 module, and also project architecture information, using `archan`_ Python module.
 
+It uses Twitter Bootstrap, JQuery, JQuery-UI and D3js libraries.
+
 .. _dependenpy: https://github.com/Pawamoy/dependenpy
 .. _archan: https://github.com/Pawamoy/archan
+
+Screenshot Matrix
+-----------------
+
+.. image:: http://image.noelshack.com/fichiers/2015/14/1427998026-depmat.png
+
+Screenshot Architecture
+-----------------------
+
+.. image:: http://image.noelshack.com/fichiers/2015/14/1427998025-archan.png
+    :alt: Architecture analysis tab
+
 
 Installation
 ------------
