@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from builtins import range
 # -*- coding: utf-8 -*-
 import sys
 import json
@@ -69,7 +71,7 @@ def create_instance(builder, archans):
                 size=builder.matrices[i].size,
                 builder=builder_db,
                 json_data=json.dumps(
-                    {'modules': builder.matrices[i].modules.values(),
+                    {'modules': list(builder.matrices[i].modules.values()),
                      'dependencies': builder.matrices[i].dependencies}),
                 complete_mediation=archans[i]['CM'],
                 economy_of_mechanism=archans[i]['EOM'],

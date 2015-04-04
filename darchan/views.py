@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from builtins import range
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -39,7 +41,7 @@ def v_view_matrix(request, builder_id, depth):
         return render(request, TEMPLATE, {
             'builder': builder,
             'matrix': matrix,
-            'max_depth': range(1, builder.max_depth+1),
+            'max_depth': list(range(1, builder.max_depth+1)),
             'history': history.exclude(pk=builder_id)
         })
     else:
