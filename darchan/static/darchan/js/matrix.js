@@ -130,8 +130,8 @@ function mouseover(p) {
     tip.transition().duration(200).style("opacity", .9);
     tip.html(p.source_name + ' depends on ' +
         p.target_name + '<br>' + 'Cardinal: '+ p.z);
-    tip     .style("left", (d3.event.pageX - 122) + "px")
-            .style("top", (d3.event.pageY - 30) + "px");
+    tip     .style("left", (d3.event.pageX - 18) + "px")
+            .style("top", (d3.event.pageY - 45) + "px");
     // Colorize names
     d3.selectAll(".row text").classed("active", function(d, i) { return i == p.y; });
     d3.selectAll(".column text").classed("active", function(d, i) { return i == p.x; });
