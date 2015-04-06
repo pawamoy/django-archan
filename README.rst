@@ -62,19 +62,10 @@ Configuration
 The following options are available:
 
 * DARCHAN_PACKAGE_LIST : the list of installed packages that will be scanned to
-  build the dependency matrices. It should be an OrderedDict (from collections),
-  but you can use a simple list of even a string. We use an OrderedDict because
-  we want our dependency matrix to keep the original order of the packages.
+  build the dependency matrices. Please read the documentation of dependenpy for more details.
 * DARCHAN_TEMPLATE : the path to the template that will include django_archan
   HTML/CSS/JS contents. The purpose of this option is to make django archan
   template inherit from your HTML base.
-
-.. warning::
-
-    If you do not use an OrderedDict, you won't be able to split your package
-    list into groups, and Archan module will not be able to analyze your
-    architecture. Archan needs to know of which kind of module each package is.
-    Please read the second warning below for more details.
 
 Usage
 -----
@@ -107,43 +98,36 @@ Usage
 
     # settings.py
 
-    from collections import OrderedDict
-
-    DARCHAN_PACKAGE_LIST = OrderedDict()
-
-    DARCHAN_PACKAGE_LIST['framework'] = ['django']
-
-    DARCHAN_PACKAGE_LIST['core_lib'] = [
-        'suit',
-        'captcha',
-        'imagekit',
-        'markdown_deux',
-        'rosetta',
-        'django_forms_bootstrap',
-        'pagedown',
-        'axes',
-        'avatar',
-        'cities_light',
-        'datetimewidget',
-        'smart_selects',
-        'modeltranslation',
-        'djangobower']
-
-    DARCHAN_PACKAGE_LIST['app_lib'] = [
-        'django_zxcvbn_password',
-        'cs_models',
-        'news',
-        'dataforms',
-        'darchan']
-
-    DARCHAN_PACKAGE_LIST['app_module'] = [
-        'complex',
-        'genida',
-        'members',
-        'questionnaires']
-
-    DARCHAN_PACKAGE_LIST['broker'] = ['security']
-
+    DARCHAN_PACKAGE_LIST = [
+        'framework', ['django'],
+        'core_lib', [
+            'suit',
+            'captcha',
+            'imagekit',
+            'markdown_deux',
+            'rosetta',
+            'django_forms_bootstrap',
+            'pagedown',
+            'axes',
+            'avatar',
+            'cities_light',
+            'datetimewidget',
+            'smart_selects',
+            'modeltranslation',
+            'djangobower'],
+        'app_lib', [
+            'django_zxcvbn_password',
+            'cs_models',
+            'news',
+            'dataforms',
+            'darchan'],
+        'app_module', [
+            'complex',
+            'genida',
+            'members',
+            'questionnaires'],
+        'broker', ['security']
+    ]
 
 .. warning::
 
