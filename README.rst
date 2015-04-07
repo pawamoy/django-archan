@@ -1,6 +1,31 @@
 django-archan
 =============
 
+
+.. image:: https://pypip.in/version/django-archan/badge.svg
+    :target: https://pypi.python.org/pypi/django-archan/
+    :alt: Latest Version
+
+.. image:: https://pypip.in/status/django-archan/badge.svg
+    :target: https://pypi.python.org/pypi/django-archan/
+    :alt: Development Status
+
+.. image:: https://pypip.in/format/django-archan/badge.svg
+    :target: https://pypi.python.org/pypi/django-archan/
+    :alt: Download format
+
+.. image:: https://travis-ci.org/Pawamoy/archan.svg?branch=master
+    :target: https://travis-ci.org/Pawamoy/archan
+    :alt: Build Status
+
+.. image:: https://pypip.in/py_versions/django-archan/badge.svg
+    :target: https://pypi.python.org/pypi/django-archan/
+    :alt: Supported Python versions
+
+.. image:: https://pypip.in/license/django-archan/badge.svg
+    :target: https://pypi.python.org/pypi/django-archan/
+    :alt: License
+
 A Django app that displays dependency matrices using `dependenpy`_ Python
 module, and also project architecture information, using `archan`_ Python module.
 
