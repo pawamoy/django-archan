@@ -12,7 +12,8 @@ install:
 - pip install archan
 #before_script:
 #- ./tests.sh
-#script:
+script:
+- echo "no tests for now"s
 #- coverage run --include='darchan*' dependenpy/tests.py
 #- coverage report -m
 #after_success: coveralls
