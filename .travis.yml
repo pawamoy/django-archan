@@ -1,0 +1,18 @@
+language: python
+python:
+- '2.7'
+- '3.3'
+- '3.4'
+install:
+- pip install pep8
+- pip install pyflakes
+- pip install pylint
+- pip install coveralls
+- pip install dependenpy
+- pip install archan
+#before_script:
+#- ./tests.sh
+#script:
+#- coverage run --include='darchan*' dependenpy/tests.py
+#- coverage report -m
+#after_success: coveralls
