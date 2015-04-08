@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from builtins import range
-# -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.admin.views.decorators import staff_member_required
@@ -51,17 +52,17 @@ def v_view_matrix(request, builder_id, depth):
 @staff_member_required
 def v_download_csv(request, builder_id, depth):
     try:
-        matrix_obj = MatrixBuilderModel.objects.get(pk=builder_id)
-        instance = matrix_obj.get_instance()
+        builder = MatrixBuilderModel.objects.get(pk=builder_id)
+        matrix = builder.matrices.get(depth=depth)
 
-        # Create the HttpResponse object with the appropriate CSV header.
-        response = HttpResponse(content_type='text/csv')
-        attachment = 'attachment; filename="matrix-%s-lvl-%s.csv"' % (
-            matrix_obj.created, depth)
+        # Create the HttpResponse object with the appropriate CSV data & header
+        response = HttpResponse(matrix.csv_data, content_type='text/csv')
+        attachment = 'attachment; filename="matrix-%s-depth-%s.csv"' % (
+            builder.created.strftime('%Y-%b-%d'), depth)
         response['Content-Disposition'] = attachment
-
-        return instance.matrix_to_csv(depth, response)
-    except MatrixBuilderModel.DoesNotExist:
+        return response
+    except (MatrixBuilderModel.DoesNotExist, MatrixModel.DoesNotExist):
         return render(request, TEMPLATE,
-                      {'matrix_json': None})
+                      {'matrix': None,
+                       'history': MatrixBuilderModel.objects.all()})
 

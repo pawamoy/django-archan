@@ -1,8 +1,9 @@
-from __future__ import unicode_literals
-from builtins import range
 # -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 import sys
 import json
+from builtins import range
 from dependenpy.utils import MatrixBuilder
 from archan.dsm import DesignStructureMatrix
 from archan.checker import Archan
@@ -73,6 +74,7 @@ def create_instance(builder, archans):
                 json_data=json.dumps(
                     {'modules': list(builder.matrices[i].modules.values()),
                      'dependencies': builder.matrices[i].dependencies}),
+                csv_data=builder.matrices[i].to_csv(),
                 complete_mediation=archans[i]['CM'],
                 economy_of_mechanism=archans[i]['EOM'],
                 separation_of_privileges=archans[i]['SOP'],

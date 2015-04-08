@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class MatrixModel(models.Model):
     json_data = models.TextField(_('JSON serialized matrix'))
+    csv_data = models.TextField(_('CSV data'))
     depth = models.PositiveSmallIntegerField(_('Depth'))
     size = models.PositiveIntegerField(_('Size'))
 
