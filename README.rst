@@ -14,7 +14,7 @@ django-archan
     :target: https://pypi.python.org/pypi/django-archan/
     :alt: Download format
 
-.. image:: https://travis-ci.org/Pawamoy/archan.svg?branch=master
+.. image:: https://travis-ci.org/Pawamoy/django-archan.svg?branch=master
     :target: https://travis-ci.org/Pawamoy/archan
     :alt: Build Status
 
