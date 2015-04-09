@@ -101,4 +101,3 @@ def v_download_csv(request, builder_id, depth):
         return render(request, TEMPLATE,
                       {'matrix': None,
                        'history': MatrixBuilderModel.objects.all()})
-
