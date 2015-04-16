@@ -3,11 +3,13 @@
 from __future__ import unicode_literals
 import sys
 import json
+import os
 from builtins import range
 from dependenpy.utils import MatrixBuilder
+import archan
 from archan.dsm import DesignStructureMatrix
 from archan.checker import Archan
-from darchan.models import MatrixModel, MatrixBuilderModel
+from darchan.models import MatrixModel, MatrixBuilderModel, Criterion
 
 
 def get_django_module_path(mod):
@@ -92,3 +94,30 @@ def create_instance(builder, sorts, archans):
             ))
 
     return builder_db, matrices_db
+
+
+def get_criterion(criterion):
+    """Return the database object containing the criterion cap-first'd name
+    and its description. If the object does not exist, this function tries
+    to create it using a text file inside the criteria directory of archan
+    package.
+
+    :param criterion: str, name of the criterion. Can be like 'My Criterion'
+        or 'my_criterion'
+    :return: :class:`Criterion`, the criterion database object
+    """
+
+    criterion = criterion.lower().replace(' ', '_')
+
+    try:
+        return Criterion.objects.get(name=criterion)
+    except Criterion.DoesNotExist:
+        paper_dir = os.path.abspath(
+            os.path.join(os.path.dirname(archan.__file__), 'criteria'))
+        try:
+            with open(os.path.join(paper_dir, criterion+'.txt')) as f:
+                return Criterion.objects.create(
+                    name=criterion,
+                    description=f.read())
+        except IOError:
+            raise AttributeError('No criterion named %s' % criterion)

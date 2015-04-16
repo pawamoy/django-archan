@@ -120,109 +120,23 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th class="text-center active">{% trans "Criteria" %}</th>
+                            <th class="text-center active">{% trans "Criterion" %}</th>
                             <th class="text-center active">{% trans "Checked" %}</th>
                             <th class="text-center active">{% trans "Description" %}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Economy Of Mechanism</td>
-                            <td class="{% if matrix.economy_of_mechanism %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.economy_of_mechanism %}ok{% else %}remove{% endif %}"></i></td>
-                            <td class="text-justify">{% blocktrans %}
-                                Keep the design as simple and small as possible. This well-known principle applies to any aspect
-                                of a system, but it deserves emphasis for protection mechanisms for this reason:
-                                design and implementation errors that result in unwanted access paths will not be noticed during
-                                normal use (since normal use usually does not include attempts to exercise improper access paths).<br>
-                                As a result, techniques such as line-by-line inspection of software and physical examination
-                                of hardware that implements protection mechanisms are necessary. For such techniques to be successful,
-                                a small and simple design is essential.
-                            {% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Complete Mediation</td>
-                            <td class="{% if matrix.complete_mediation %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.complete_mediation %}ok{% else %}remove{% endif %}"></i></td>
-                            <td class="text-justify">{% blocktrans %}
-                                Every access to every object must be checked for authority. This principle, when systematically applied,
-                                is the primary underpinning of the protection system. It forces a system-wide view of access control,
-                                which in addition to normal operation includes initialization, recovery, shutdown, and maintenance.
-                                It implies that a foolproof method of identifying the source of every request must be devised.
-                                It also requires that proposals to gain performance by remembering the result of an authority check
-                                be examined skeptically. If a change in authority occurs, such remembered results must be systematically
-                                updated.
-                            {% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Open Design</td>
-                            <td class="{% if matrix.open_design %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.open_design %}ok{% else %}remove{% endif %}"></i></td>
-                            <td class="text-justify">{% blocktrans %}
-                                The design should not be secret. The mechanisms should not depend on the ignorance of potential attackers,
-                                but rather on the possession of specific, more easily protected, keys or passwords.
-                                This decoupling of protection mechanisms from protection keys permits the mechanisms to be examined
-                                by many reviewers without concern that the review may itself compromise the safeguards.<br>
-                                In addition, any skeptical user may be allowed to convince himself that the system he is about to use
-                                is adequate for his purpose. Finally, it is simply not realistic to attempt to maintain secrecy
-                                for any system which receives wide distribution.
-                            {% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Separation Of Privileges</td>
-                            <td class="{% if matrix.separation_of_privileges %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.separation_of_privileges %}ok{% else %}remove{% endif %}"></i></td>
-                            <td class="text-justify">{% blocktrans %}
-                                Where feasible, a protection mechanism that requires two keys to unlock it is more robust and flexible
-                                than one that allows access to the presenter of only a single key. The relevance of this observation
-                                to computer systems was pointed out by R. Needham in 1973. The reason is that, once the mechanism is locked,
-                                the two keys can be physically separated and distinct programs, organizations, or individuals made responsible
-                                for them. From then on, no single accident, deception, or breach of trust is sufficient to compromise
-                                the protected information.<br>
-                                This principle is often used in bank safe-deposit boxes.
-                                It is also at work in the defense system that fires a nuclear weapon only if two different people both give
-                                the correct command. In a computer system, separated keys apply to any situation in which two
-                                or more conditions must be met before access should be permitted. For example, systems providing
-                                user-extendible protected data types usually depend on separation of privilege for their implementation.
-                            {% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Least Privileges</td>
-                            <td class="{% if matrix.least_privileges %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.least_privileges %}ok{% else %}remove{% endif %}"></i></td>
-                            <td class="text-justify">{% blocktrans %}
-                                Every program and every user of the system should operate using the least set
-                                of privileges necessary to complete the job. Primarily, this principle limits the damage that can result
-                                from an accident or error. It also reduces the number of potential interactions among privileged programs
-                                to the minimum for correct operation, so that unintentional, unwanted, or improper uses of privilege
-                                are less likely to occur. Thus, if a question arises related to misuse of a privilege, the number
-                                of programs that must be audited is minimized.<br>
-                                Put another way, if a mechanism can provide "firewalls,"
-                                the principle of least privilege provides a rationale for where to install the firewalls.
-                                The military security rule of "need-to-know" is an example of this principle.
-                            {% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Least Common Mechanism</td>
-                            <td class="{% if matrix.least_common_mechanism %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.least_common_mechanism %}ok{% else %}remove{% endif %}"></i></td>
-                            <td class="text-justify">{% blocktrans %}
-                                Minimize the amount of mechanism common to more than one user and depended on
-                                by all users. Every shared mechanism (especially one involving shared variables) represents a potential
-                                information path between users and must be designed with great care to be sure it does not
-                                unintentionally compromise security. Further, any mechanism serving all users must be certified
-                                to the satisfaction of every user, a job presumably harder than satisfying only one or a few users.<br>
-                                For example, given the choice of implementing a new function as a supervisor procedure shared
-                                by all users or as a library procedure that can be handled as though it were the user's own,
-                                choose the latter course. Then, if one or a few users are not satisfied with the level of certification
-                                of the function, they can provide a substitute or not use it at all. Either way, they can avoid being
-                                harmed by a mistake in it.
-                            {% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Code Clean</td>
-                            <td class="{% if matrix.code_clean %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.code_clean %}ok{% else %}remove{% endif %}"></i></td>
-                            <td>{% blocktrans %}...{% endblocktrans %}</td>
-                        </tr>
-                        <tr>
-                            <td>Layered Architecture</td>
-                            <td class="{% if matrix.layered_architecture %}success{% else %}danger{% endif %}"><i class="glyphicon glyphicon-{% if matrix.layered_architecture %}ok{% else %}remove{% endif %}"></i></td>
-                            <td>{% blocktrans %}...{% endblocktrans %}</td>
-                        </tr>
+                        {% for criterion in criteria %}
+                            <tr>
+                                <td>{{ criterion.object }}</td>
+                                {% if criterion.value %}
+                                    <td class="success"><i class="glyphicon glyphicon-ok"></i></td>
+                                {% else %}
+                                    <td class="danger"><i class="glyphicon glyphicon-remove"></i></td>
+                                {% endif %}
+                                <td class="text-justify">{% trans criterion.object.description %}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

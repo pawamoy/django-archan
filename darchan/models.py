@@ -46,6 +46,22 @@ class MatrixModel(models.Model):
     def sorts_as_list(self):
         return self.sorts.split(',')
 
+    def criterion_value(self, criterion):
+        return getattr(self, criterion, False)
+
+    @staticmethod
+    def criteria_names():
+        return [
+            'economy_of_mechanism',
+            'complete_mediation',
+            'open_design',
+            'separation_of_privileges',
+            'least_privileges',
+            'least_common_mechanism',
+            'code_clean',
+            'layered_architecture'
+        ]
+
 
 class MatrixBuilderModel(models.Model):
     """The database model containing the data of a dependenpy.MatrixBuilder
@@ -59,3 +75,19 @@ class MatrixBuilderModel(models.Model):
 
     def __unicode__(self):
         return '%s' % self.created.strftime('%Y-%b-%d')
+
+
+class Criterion(models.Model):
+    """The database model containing the pretty name and description of each
+    Archan criterion.
+    """
+
+    name = models.CharField(_('Name'), max_length=50)
+    description = models.TextField(_('Description'))
+
+    class Meta:
+        verbose_name = _('Criterion')
+        verbose_name_plural = _('Criteria')
+
+    def __unicode__(self):
+        return '%s' % self.name.replace('_', ' ').title()

@@ -5,7 +5,7 @@ from builtins import range
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.admin.views.decorators import staff_member_required
-from darchan.utils import generate_matrix
+from darchan.utils import generate_matrix, get_criterion
 from darchan.app_settings import PACKAGE_LIST, TEMPLATE
 from darchan.models import MatrixBuilderModel, MatrixModel
 
@@ -70,7 +70,10 @@ def v_view_matrix(request, builder_id, depth):
             'builder': builder,
             'matrix': matrix,
             'max_depth': list(range(1, builder.max_depth+1)),
-            'history': history.exclude(pk=builder_id)
+            'history': history.exclude(pk=builder_id),
+            'criteria': [{'object': get_criterion(c),
+                          'value': matrix.criterion_value(c)}
+                         for c in MatrixModel.criteria_names()]
         })
     else:
         return v_generate_matrix(request)
