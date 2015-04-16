@@ -134,7 +134,7 @@
                                 {% else %}
                                     <td class="danger"><i class="glyphicon glyphicon-remove"></i></td>
                                 {% endif %}
-                                <td class="text-justify">{% trans criterion.object.description %}</td>
+                                <td class="text-justify">{% trans criterion.object.description|linebreaks %}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

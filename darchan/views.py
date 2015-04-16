@@ -18,7 +18,7 @@ def v_generate_matrix(request):
     :return: a view
     """
 
-    builder, matrices = generate_matrix(PACKAGE_LIST)
+    builder = generate_matrix(PACKAGE_LIST)
     return v_view_matrix(request, builder.pk, 1)
 
 

@@ -32,8 +32,7 @@ def generate_matrix(apps):
     and its matrices.
 
     :param apps: str/list/OrderedDict, the list of packages to scan
-    :return: :class:`MatrixBuilderModel`, [:class:`MatrixModel`]; the builder
-        and its matrices (database objects)
+    :return: :class:`MatrixBuilderModel`, the builder (database object)
     """
 
     builder = MatrixBuilder(apps, get_django_module_path)
@@ -62,8 +61,7 @@ def create_instance(builder, sorts, archans):
     :param builder: the builder instance from dependenpy
     :param sorts: list of str, comma joined available sorts for each matrix
     :param archans: list of dict, archan checker results for each matrix
-    :return: :class:`MatrixBuilderModel`, [:class:`MatrixModel`]; the builder
-        and its matrices (database objects)
+    :return: :class:`MatrixBuilderModel`, the builder (database object)
     """
 
     builder_db = MatrixBuilderModel.objects.create(
@@ -71,7 +69,6 @@ def create_instance(builder, sorts, archans):
         groups=json.dumps(builder.groups))
 
     matrices_db = []
-    # for matrix, archan in builder.matrices, archans:
     for i in range(builder.max_depth):
         matrices_db.append(
             MatrixModel.objects.create(
@@ -93,7 +90,7 @@ def create_instance(builder, sorts, archans):
                 code_clean=archans[i]['CC']
             ))
 
-    return builder_db, matrices_db
+    return builder_db
 
 
 def get_criterion(criterion):
