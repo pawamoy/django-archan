@@ -17,6 +17,7 @@ class MatrixModel(models.Model):
     csv_data = models.TextField(_('CSV data'))
     depth = models.PositiveSmallIntegerField(_('Depth'))
     size = models.PositiveIntegerField(_('Size'))
+    sorts = models.CharField(_('Available sorts'), max_length=255)
 
     complete_mediation = models.BooleanField(
         _('Complete mediation'), default=False)
@@ -41,6 +42,9 @@ class MatrixModel(models.Model):
 
     def __unicode__(self):
         return '%s / Depth %s' % (self.builder, self.depth)
+
+    def sorts_as_list(self):
+        return self.sorts.split(',')
 
 
 class MatrixBuilderModel(models.Model):

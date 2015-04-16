@@ -45,40 +45,17 @@
                         <div>
                             {% trans "Order by" %}
                             <select id="order" class="pull-right btn btn-default settings-btn">
-                                <option value="group">
-                                    {% trans "Group" %}
-                                </option>
-                                <option value="group_reverse">
-                                    {% trans "Group (reverse)" %}
-                                </option>
-                                <option disabled>---------------------------</option>
-                                <option value="name">
-                                    {% trans "Name" %}
-                                </option>
-                                <option value="name_reverse">
-                                    {% trans "Name (reverse)" %}
-                                </option>
-                                <option disabled>---------------------------</option>
-                                <option value="import">
-                                    {% trans "Import frequency" %}
-                                </option>
-                                <option value="import_reverse">
-                                    {% trans "Import frequency (reverse)" %}
-                                </option>
-                                <option disabled>---------------------------</option>
-                                <option value="export">
-                                    {% trans "Export frequency" %}
-                                </option>
-                                <option value="export_reverse">
-                                    {% trans "Export frequency (reverse)" %}
-                                </option>
-                                <option disabled>---------------------------</option>
-                                <option value="similarity">
-                                    {% trans "Similarity" %}
-                                </option>
-                                <option value="similarity_reverse">
-                                    {% trans "Similarity (reverse)" %}
-                                </option>
+                                {% for sort in matrix.sorts_as_list %}
+                                    <option value="{{ sort }}">
+                                        {% trans sort|capfirst %}
+                                    </option>
+                                    <option value="{{ sort }}_reverse">
+                                        {% trans "Reverse "|add:sort|capfirst %}
+                                    </option>
+                                    {% if not forloop.last %}
+                                        <option disabled>---------------------------</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                         <br>
@@ -89,8 +66,7 @@
                                     <a class="label label-{% if d == matrix.depth %}success active{% else %}default{% endif %}" href="{% url 'view_matrix' builder.id d %}">{{ d }}</a>
                                 {% endfor %}
                             </div>
-                        </div>
-                        <br>
+                        </div><br>
                         <div>
                             {% trans "New matrix" %}
                             <a href="{% url 'generate_matrix' %}">
@@ -98,8 +74,7 @@
                                     {% trans "Generate" %}
                                 </button>
                             </a>
-                        </div>
-                        <br>
+                        </div><br>
                         <div>
                             {% trans "Download as CSV" %}
                             <a href="{% url 'download_csv' builder.id matrix.depth %}">
@@ -107,8 +82,7 @@
                                     {% trans "Download" %}
                                 </button>
                             </a>
-                        </div>
-                        <br>
+                        </div><br>
                         <div>
                             {% trans "History" %}
                             <button class="dropdown-toggle btn btn-default pull-right settings-btn" data-toggle="dropdown">

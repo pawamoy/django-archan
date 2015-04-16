@@ -25,9 +25,9 @@ def get_django_module_path(mod):
 
 def generate_matrix(apps):
     """Build a matrix using MatrixBuilder from dependenpy,
-    compute its different sorting orders, and return a database
-    instance of the builder and its matrices.
-
+    compute the different sorting orders and check the archan criteria
+    for each of its matrices and return a database instance of the builder
+    and its matrices.
 
     :param apps: str/list/OrderedDict, the list of packages to scan
     :return: :class:`MatrixBuilderModel`, [:class:`MatrixModel`]; the builder
@@ -41,20 +41,25 @@ def generate_matrix(apps):
     # for matrix in builder.matrices:
     #     matrix.compute_orders()
 
+    sorts_list = [','.join([key for key, value in m.orders.iteritems()
+                            if value[0]])
+                  for m in builder.matrices]
     dsm_list = [DesignStructureMatrix(m.groups, m.keys, m.matrix)
                 for m in builder.matrices]
     archan = Archan()
 
-    return create_instance(builder, [archan.check_all(dsm)
-                                     for dsm in dsm_list])
+    return create_instance(builder, sorts_list, [archan.check_all(dsm)
+                                                 for dsm in dsm_list])
 
 
-def create_instance(builder, archans):
+def create_instance(builder, sorts, archans):
     """Save the builder instance and its matrices as database objects
     and return them.
 
     :type builder: :class:`MatrixBuilder`
     :param builder: the builder instance from dependenpy
+    :param sorts: list of str, comma joined available sorts for each matrix
+    :param archans: list of dict, archan checker results for each matrix
     :return: :class:`MatrixBuilderModel`, [:class:`MatrixModel`]; the builder
         and its matrices (database objects)
     """
@@ -70,6 +75,7 @@ def create_instance(builder, archans):
             MatrixModel.objects.create(
                 depth=builder.matrices[i].depth,
                 size=builder.matrices[i].size,
+                sorts=sorts[i],
                 builder=builder_db,
                 json_data=json.dumps(
                     {'modules': list(builder.matrices[i].modules.values()),
