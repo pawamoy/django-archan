@@ -69,18 +69,14 @@
                         </div><br>
                         <div>
                             {% trans "New matrix" %}
-                            <a href="{% url 'generate_matrix' %}">
-                                <button class="btn btn-default pull-right settings-btn">
-                                    {% trans "Generate" %}
-                                </button>
+                            <a class="btn btn-default pull-right settings-btn" href="{% url 'generate_matrix' %}">
+                                {% trans "Generate" %}
                             </a>
                         </div><br>
                         <div>
                             {% trans "Download as CSV" %}
-                            <a href="{% url 'download_csv' builder.id matrix.depth %}">
-                                <button class="btn btn-default pull-right settings-btn">
-                                    {% trans "Download" %}
-                                </button>
+                            <a class="btn btn-default pull-right settings-btn" href="{% url 'download_csv' builder.id matrix.depth %}">
+                                {% trans "Download" %}
                             </a>
                         </div><br>
                         <div>
