@@ -58,8 +58,8 @@ class MatrixModel(models.Model):
             'separation_of_privileges',
             'least_privileges',
             'least_common_mechanism',
-            'code_clean',
-            'layered_architecture'
+            'layered_architecture',
+            'code_clean'
         ]
 
 
