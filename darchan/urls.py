@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.conf.urls import patterns, url
+# from __future__ import unicode_literals
+from django.conf.urls import url
+from darchan import views
 
-urlpatterns = patterns(
-    'darchan.views',
-    url(r'^view_matrix/$', 'v_view_last_matrix', name='view_last_matrix'),
-    url(r'^view_matrix/(?P<builder_id>\d+)/(?P<depth>\d+)/$', 'v_view_matrix',
-        name='view_matrix'),
-    url(r'^generate_matrix/$', 'v_generate_matrix', name='generate_matrix'),
+urlpatterns = [
+    url(r'^view_matrix/$',
+        views.v_view_last_matrix, name='view_last_matrix'),
+    url(r'^view_matrix/(?P<builder_id>\d+)/(?P<depth>\d+)/$',
+        views.v_view_matrix, name='view_matrix'),
+    url(r'^generate_matrix/$',
+        views.v_generate_matrix, name='generate_matrix'),
     url(r'^download_csv/(?P<builder_id>\d+)/(?P<depth>\d+)/$',
-        'v_download_csv', name='download_csv'),
-)
+        views.v_download_csv, name='download_csv'),
+]
