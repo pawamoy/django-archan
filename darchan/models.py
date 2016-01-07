@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-# FIXME: we should maybe store archan criteria result in the builder model
+# TODO: we should maybe store archan criteria result in the builder model
 # since each matrix depth should have the same results (not sure)
 class MatrixModel(models.Model):
     """The database model containing the data of a dependenpy.Matrix class
