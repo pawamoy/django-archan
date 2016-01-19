@@ -5,3 +5,4 @@ MANIFEST
 .idea/
 django_archan.egg-info/
 stats/
+migrations/
