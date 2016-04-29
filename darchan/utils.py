@@ -42,7 +42,7 @@ def generate_matrix(apps):
     # for matrix in builder.matrices:
     #     matrix.compute_orders()
 
-    sorts_list = [','.join([key for key, value in m.orders.iteritems()
+    sorts_list = [','.join([key for key, value in m.orders.items()
                             if value[0]])
                   for m in builder.matrices]
     dsm_list = [DesignStructureMatrix(m.groups, m.keys, m.matrix)
